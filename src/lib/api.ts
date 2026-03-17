@@ -2,10 +2,6 @@ import { getToken } from './auth'
 
 const API_BASE_URL = '/api/backend'
 
-async function apiFetch(path: string, options: RequestInit = {}) {
-  const url = `${API_BASE_URL}?path=${encodeURIComponent(path.replace(/^\//, ''))}`
-  return fetch(url, options)
-}
 
 async function request(path: string, options: RequestInit = {}) {
   const token = getToken()
@@ -63,8 +59,9 @@ export const api = {
 }
 
 export function createWebSocket(jobId: string): WebSocket {
-  const wsBase = (API_BASE || 'http://localhost:8000').replace(/^http/, 'ws')
+  const wsBase = (API_BASE_URL || "http://localhost:8000").replace(/^http/, 'ws')
   return new WebSocket(`${wsBase}/ws/${jobId}`)
 }
 
-export { API_BASE }
+
+export const API_BASE = API_BASE_URL
