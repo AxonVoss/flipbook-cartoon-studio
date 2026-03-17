@@ -98,7 +98,7 @@ function StudioContent() {
       const project = await api.createProject(formData)
 
       // Start generation
-      const gen = await api.startGeneration(project.id, 'mock')
+      const gen = await api.startGeneration(project.id, formData.model || 'replicate')
       
       // Connect WebSocket
       connectWebSocket(gen.job_id, gen.total_frames)

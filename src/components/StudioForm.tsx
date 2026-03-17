@@ -132,12 +132,24 @@ export default function StudioForm({
         📊 <strong>{totalFrames} frames</strong> will be generated ({form.duration_seconds}s × {form.fps}fps)
       </div>
 
+      <div>
+        <label className="block font-black text-cartoon-dark mb-1">🤖 AI Model</label>
+        <select
+          className="input-cartoon w-full"
+          value={(form as any).model || 'replicate'}
+          onChange={(e) => set('model' as any, e.target.value)}
+        >
+          <option value="replicate">🎨 Replicate SDXL (Best Quality)</option>
+          <option value="mock">🔧 Mock (Fast Test, No API Cost)</option>
+        </select>
+      </div>
+
       <button
         type="submit"
         disabled={loading}
         className="btn-yellow w-full text-lg py-4 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        {loading ? '⏳ Generating Storyboard...' : '🎬 Generate Storyboard & Start'}
+        {loading ? '⏳ Generating...' : '🎬 Generate Animation'}
       </button>
     </form>
   )
