@@ -113,7 +113,7 @@ export default function ProgressPanel({
             <div className="mt-4 flex gap-3">
               {progress.video_url && (
                 <a
-                  href={`${API_BASE}${progress.video_url}`}
+                  href={`/api/backend?path=${encodeURIComponent(progress.video_url!.replace(/^\//, ''))}`}
                   download
                   className="btn-blue flex-1 text-center text-sm py-2 block"
                 >
@@ -122,7 +122,7 @@ export default function ProgressPanel({
               )}
               {progress.pdf_url && (
                 <a
-                  href={`${API_BASE}${progress.pdf_url}`}
+                  href={`/api/backend?path=${encodeURIComponent(progress.pdf_url!.replace(/^\//, ''))}`}
                   download
                   className="btn-cartoon bg-cartoon-green text-white border-cartoon-dark flex-1 text-center text-sm py-2 block"
                 >

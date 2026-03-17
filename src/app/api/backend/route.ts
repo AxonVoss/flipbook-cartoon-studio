@@ -6,19 +6,30 @@ async function proxy(req: NextRequest) {
   const { searchParams } = new URL(req.url)
   const path = searchParams.get('path') || ''
   const url = `${BACKEND}/${path}`
-  const headers: Record<string, string> = { 'Content-Type': 'application/json' }
+  
+  const headers: Record<string, string> = {}
   const auth = req.headers.get('authorization')
+  const ct = req.headers.get('content-type')
   if (auth) headers['Authorization'] = auth
+  if (ct) headers['Content-Type'] = ct
 
   let body: string | undefined
-  if (req.method !== 'GET') {
+  if (!['GET', 'OPTIONS', 'HEAD'].includes(req.method)) {
     try { body = await req.text() } catch {}
   }
 
   try {
     const res = await fetch(url, { method: req.method, headers, body })
-    const data = await res.text()
-    return new NextResponse(data, { status: res.status, headers: { 'Content-Type': 'application/json' } })
+    const contentType = res.headers.get('content-type') || 'application/octet-stream'
+    const buffer = await res.arrayBuffer()
+    
+    return new NextResponse(buffer, {
+      status: res.status,
+      headers: {
+        'Content-Type': contentType,
+        'Access-Control-Allow-Origin': '*',
+      }
+    })
   } catch (e: any) {
     return NextResponse.json({ error: e.message }, { status: 502 })
   }

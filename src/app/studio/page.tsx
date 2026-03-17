@@ -66,25 +66,8 @@ function StudioContent() {
   }
 
   const connectWebSocket = (jobId: string, totalFrames: number) => {
-    wsRef.current?.close()
-    const ws = createWebSocket(jobId)
-
-    ws.onmessage = (event) => {
-      try {
-        const data = JSON.parse(event.data)
-        setProgress(data)
-        if (data.status === 'done' || data.status === 'failed') {
-          ws.close()
-        }
-      } catch {}
-    }
-
-    ws.onerror = () => {
-      // Fall back to polling
-      startPolling(jobId)
-    }
-
-    wsRef.current = ws
+    // Always use polling (WebSocket not available through Vercel proxy)
+    startPolling(jobId)
   }
 
   const startPolling = (jobId: string) => {
