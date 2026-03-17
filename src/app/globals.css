@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #FFFBF0;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .btn-cartoon {
+    @apply px-6 py-3 font-bold rounded-cartoon border-3 border-cartoon-dark shadow-cartoon 
+           transition-all duration-100 cursor-pointer select-none
+           hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none
+           active:translate-x-[4px] active:translate-y-[4px] active:shadow-none;
+  }
+
+  .btn-yellow {
+    @apply btn-cartoon bg-cartoon-yellow text-cartoon-dark;
+  }
+
+  .btn-blue {
+    @apply btn-cartoon bg-cartoon-blue text-white;
+  }
+
+  .btn-red {
+    @apply btn-cartoon bg-cartoon-red text-white;
+  }
+
+  .card-cartoon {
+    @apply bg-white border-3 border-cartoon-dark rounded-cartoon shadow-cartoon p-6;
+  }
+
+  .input-cartoon {
+    @apply w-full px-4 py-3 border-3 border-cartoon-dark rounded-cartoon bg-white
+           focus:outline-none focus:ring-2 focus:ring-cartoon-yellow focus:border-cartoon-yellow
+           font-medium;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-bold border-2 border-cartoon-dark;
+  }
+}
+
+/* Bounce animation for hero */
+@keyframes bounce-cartoon {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+.animate-bounce-cartoon {
+  animation: bounce-cartoon 2s ease-in-out infinite;
+}
+
+/* Wiggle */
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+.animate-wiggle {
+  animation: wiggle 0.5s ease-in-out;
+}
