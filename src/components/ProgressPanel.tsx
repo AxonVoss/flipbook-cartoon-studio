@@ -1,5 +1,5 @@
 'use client'
-import { API_BASE } from '@/lib/api'
+const FILES_BASE = 'http://api.axonprotocol.net'
 
 interface ProgressState {
   status: string
@@ -93,7 +93,7 @@ export default function ProgressPanel({
               <p className="text-xs font-bold text-gray-500 mb-1">LATEST FRAME PREVIEW</p>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={`${API_BASE}${progress.preview_url}`}
+                src={`${FILES_BASE}${progress.preview_url}`}
                 alt="Latest frame"
                 className="w-full rounded-xl border-2 border-cartoon-dark"
                 key={progress.preview_url}
@@ -113,7 +113,7 @@ export default function ProgressPanel({
             <div className="mt-4 flex gap-3">
               {progress.video_url && (
                 <a
-                  href={`/api/backend?path=${encodeURIComponent(progress.video_url!.replace(/^\//, ''))}`}
+                  href={`http://api.axonprotocol.net${progress.video_url}`}
                   download
                   className="btn-blue flex-1 text-center text-sm py-2 block"
                 >
@@ -122,7 +122,7 @@ export default function ProgressPanel({
               )}
               {progress.pdf_url && (
                 <a
-                  href={`/api/backend?path=${encodeURIComponent(progress.pdf_url!.replace(/^\//, ''))}`}
+                  href={`http://api.axonprotocol.net${progress.pdf_url}`}
                   download
                   className="btn-cartoon bg-cartoon-green text-white border-cartoon-dark flex-1 text-center text-sm py-2 block"
                 >

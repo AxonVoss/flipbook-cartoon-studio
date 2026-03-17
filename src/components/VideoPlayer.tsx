@@ -1,10 +1,11 @@
 'use client'
-import { API_BASE } from '@/lib/api'
+
+const FILES_BASE = 'http://api.axonprotocol.net'
 
 export default function VideoPlayer({ videoUrl, pdfUrl }: { videoUrl?: string; pdfUrl?: string }) {
   if (!videoUrl) return null
 
-  const fullVideoUrl = `${API_BASE}${videoUrl}`
+  const fullVideoUrl = `${FILES_BASE}${videoUrl}`
 
   return (
     <div className="card-cartoon">
@@ -13,6 +14,7 @@ export default function VideoPlayer({ videoUrl, pdfUrl }: { videoUrl?: string; p
         src={fullVideoUrl}
         controls
         loop
+        playsInline
         className="w-full rounded-xl border-2 border-cartoon-dark"
       />
       <div className="flex gap-3 mt-3">
@@ -21,7 +23,7 @@ export default function VideoPlayer({ videoUrl, pdfUrl }: { videoUrl?: string; p
         </a>
         {pdfUrl && (
           <a
-            href={`${API_BASE}${pdfUrl}`}
+            href={`${FILES_BASE}${pdfUrl}`}
             download
             className="btn-cartoon bg-cartoon-green text-white border-cartoon-dark flex-1 text-center text-sm py-2 block"
           >
