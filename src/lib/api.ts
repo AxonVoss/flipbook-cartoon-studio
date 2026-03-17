@@ -1,6 +1,11 @@
 import { getToken } from './auth'
 
-const API_BASE = '/api/proxy'
+const API_BASE_URL = '/api/backend'
+
+async function apiFetch(path: string, options: RequestInit = {}) {
+  const url = `${API_BASE_URL}?path=${encodeURIComponent(path.replace(/^\//, ''))}`
+  return fetch(url, options)
+}
 
 async function request(path: string, options: RequestInit = {}) {
   const token = getToken()
@@ -12,7 +17,8 @@ async function request(path: string, options: RequestInit = {}) {
     headers['Authorization'] = `Bearer ${token}`
   }
 
-  const res = await fetch(`${API_BASE}${path}`, {
+  const proxyUrl = `${API_BASE_URL}?path=${encodeURIComponent(path.replace(/^\//, ''))}`
+  const res = await fetch(proxyUrl, {
     ...options,
     headers,
   })
